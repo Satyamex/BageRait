@@ -368,4 +368,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraTransform: {fileID: 740471524131081130}
   playerTransform: {fileID: 8663137090267959770}
-  cameraInterpolationRate: 2
+  cameraInterpolationRateX: 3
+  cameraInterpolationRateY: 0.5

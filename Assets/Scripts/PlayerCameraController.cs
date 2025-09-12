@@ -6,16 +6,20 @@ public class PlayerCameraController : MonoBehaviour
     [SerializeField] private Transform cameraTransform, playerTransform;
 
     [Header("Fields")]
-    [SerializeField] private float cameraInterpolationRate = default;
+    [SerializeField] private float cameraInterpolationRateX, cameraInterpolationRateY = default;
 
-    private Vector3 targetPosition = default;
+    private Vector3 targetPositionX, targetPositionY = default;
 
     private void Update()
     {
-        targetPosition = 
-            new Vector3(playerTransform.position.x, playerTransform.position.y, cameraTransform.position.z);
+        // smoothly interpolating camera towards player (different for X and Y axis)
+        targetPositionX = 
+            new Vector3(playerTransform.position.x, cameraTransform.position.y, cameraTransform.position.z);
+        targetPositionY =
+            new Vector3(cameraTransform.position.x, playerTransform.position.y, cameraTransform.position.z);
         cameraTransform.position = 
-            Vector3.Lerp(cameraTransform.position, targetPosition, cameraInterpolationRate * Time.deltaTime);
-
+            Vector3.Lerp(cameraTransform.position, targetPositionX, cameraInterpolationRateX * Time.deltaTime);
+        cameraTransform.position =
+            Vector3.Lerp(cameraTransform.position, targetPositionY, cameraInterpolationRateY * Time.deltaTime);
     }
 }
