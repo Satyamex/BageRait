@@ -30,6 +30,7 @@ internal sealed class PlayerController : MonoBehaviour
 
         if (jump && IsPlayerGrounded())
         {
+            playerRigidBody.linearVelocityY = 0f;
             playerRigidBody.AddForce(playerTransform.up * playerUpThrustForce, ForceMode2D.Impulse);
             jump = false;
         }
@@ -54,5 +55,8 @@ internal sealed class PlayerController : MonoBehaviour
         return Physics2D.Raycast(transform.position, -playerTransform.up, playerRaycastMaxDistance, groundLayer);
     }
 
-    private void KillPlayerInput() { jump = false; }
+    private void KillPlayerInput() 
+    { 
+        jump = false; 
+    }
 }
