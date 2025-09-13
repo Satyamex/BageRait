@@ -13,6 +13,8 @@ internal sealed class PlayerController : MonoBehaviour
     private float playerRaycastMaxDistance = 0.7f;
     private bool moveLeft, moveRight, jump = false;
 
+    private const float Y_LIMIT = -8.5f;
+
     private void FixedUpdate()
     {
         // player movement
@@ -48,6 +50,18 @@ internal sealed class PlayerController : MonoBehaviour
             jump = true;
             Invoke("KillPlayerInput", jumpBufferTime);
         }
+
+        // calling LazyUpdate
+        if (Random.Range(1, 60) <= 10)
+            LazyUpdate();
+    }
+
+    // 1/6 chance of geting called
+    private void LazyUpdate() 
+    {
+        // other conditionals
+        if (playerTransform.position.y <= Y_LIMIT)
+            Die();
     }
 
     private bool IsPlayerGrounded()
@@ -58,5 +72,10 @@ internal sealed class PlayerController : MonoBehaviour
     private void KillPlayerInput() 
     { 
         jump = false; 
+    }
+
+    private void Die() 
+    {
+        Debug.Log("Player died!");
     }
 }
