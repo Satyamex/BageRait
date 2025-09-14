@@ -1,10 +1,13 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 internal sealed class PlayerController : MonoBehaviour
 {
     [Header("Refrences")]
     [SerializeField] private Rigidbody2D playerRigidBody;
     [SerializeField] private Transform playerTransform;
+    [SerializeField] private SpriteRenderer playerSprite;
+    [SerializeField] private ParticleSystem playerDeathParticles;
 
     [Header("Fields")]
     [SerializeField] private float playerSpeed, playerUpThrustForce, jumpBufferTime = default;
@@ -64,6 +67,12 @@ internal sealed class PlayerController : MonoBehaviour
             Die();
     }
 
+    private void OnCollisionEnter2D(Collision2D collision) 
+    {
+        if (collision.gameObject.CompareTag("Death"))
+            Die();
+    }
+
     private bool IsPlayerGrounded()
     {
         return Physics2D.Raycast(transform.position, -playerTransform.up, playerRaycastMaxDistance, groundLayer);
@@ -76,6 +85,13 @@ internal sealed class PlayerController : MonoBehaviour
 
     private void Die() 
     {
-        Debug.Log("Player died!");
+        playerSprite.enabled = false;
+        playerDeathParticles.Play();
+        Invoke(nameof(Restart), 1f);
+    }
+
+    private void Restart() 
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
