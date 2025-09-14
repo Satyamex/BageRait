@@ -14,12 +14,17 @@ internal sealed class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
 
     private float playerRaycastMaxDistance = 0.7f;
-    private bool moveLeft, moveRight, jump = false;
+    private bool moveLeft, moveRight, jump, playerDied = false;
+
+    public uint score = default;
 
     private const float Y_LIMIT = -8.5f;
 
     private void FixedUpdate()
     {
+        if (playerDied)
+            return;
+
         // player movement
         if (moveRight)
         {
@@ -43,6 +48,9 @@ internal sealed class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (playerDied)
+            return;
+
         // input handling
         if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
             moveRight = true;
@@ -62,6 +70,9 @@ internal sealed class PlayerController : MonoBehaviour
     // 1/6 chance of geting called
     private void LazyUpdate() 
     {
+        if (playerDied)
+            return;
+
         // other conditionals
         if (playerTransform.position.y <= Y_LIMIT)
             Die();
@@ -71,6 +82,13 @@ internal sealed class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Death"))
             Die();
+        if (collision.gameObject.CompareTag("Score"))
+        {
+            score++;
+            ScoreObjectController scorePoint = collision.gameObject.GetComponent<ScoreObjectController>();
+            scorePoint.Die();
+            Destroy(collision.gameObject, 2f);
+        }
     }
 
     private bool IsPlayerGrounded()
@@ -85,7 +103,10 @@ internal sealed class PlayerController : MonoBehaviour
 
     private void Die() 
     {
+        if (playerDied)
+            return;
         playerSprite.enabled = false;
+        playerDied = true;
         playerDeathParticles.Play();
         Invoke(nameof(Restart), 1f);
     }
