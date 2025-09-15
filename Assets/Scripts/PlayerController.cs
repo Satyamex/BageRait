@@ -32,7 +32,7 @@ internal sealed class PlayerController : MonoBehaviour
             moveRight = false;
         }
 
-        else if (moveLeft)
+        if (moveLeft)
         {
             playerRigidBody.AddForce(-playerTransform.right * playerSpeed, ForceMode2D.Force);
             moveLeft = false;
@@ -54,7 +54,7 @@ internal sealed class PlayerController : MonoBehaviour
         // input handling
         if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
             moveRight = true;
-        else if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
             moveLeft = true;
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Z))
         {

@@ -5110,6 +5110,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  score: 0
 --- !u!1 &9133722254619807088
 GameObject:
   m_ObjectHideFlags: 0
@@ -5262,5 +5263,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraTransform: {fileID: 740471524131081130}
   playerTransform: {fileID: 8663137090267959770}
-  cameraInterpolationRateX: 3
+  cameraInterpolationRateX: 6
   cameraInterpolationRateY: 1
