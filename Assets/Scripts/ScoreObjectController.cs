@@ -12,5 +12,11 @@ internal sealed class ScoreObjectController : MonoBehaviour
         scoreSpriteRenderer.enabled = false;
         scoreCollectParticles.Play();
         scorePointCollider.enabled = false;
+        Invoke(nameof(DieTrue), 2f);
+    }
+
+    private void DieTrue() 
+    {
+        Destroy(gameObject);
     }
 }

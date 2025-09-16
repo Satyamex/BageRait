@@ -17,6 +17,7 @@ internal sealed class PlayerController : MonoBehaviour
     private bool moveLeft, moveRight, jump, playerDied = false;
 
     public uint score = default;
+    public bool playerWon = default;
 
     private const float Y_LIMIT = -8.5f;
 
@@ -88,6 +89,13 @@ internal sealed class PlayerController : MonoBehaviour
             ScoreObjectController scorePoint = collision.gameObject.GetComponent<ScoreObjectController>();
             scorePoint.Die();
             Destroy(collision.gameObject, 2f);
+        }
+        if (collision.gameObject.CompareTag("LevelCompletor")) 
+        {
+            playerWon = true;
+            collision.gameObject.GetComponentInChildren<ParticleSystem>().Play();
+            collision.gameObject.GetComponent<PolygonCollider2D>().enabled = false;
+            collision.gameObject.GetComponent<SpriteRenderer>().enabled = false;
         }
     }
 
