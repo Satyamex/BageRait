@@ -15,11 +15,17 @@ internal sealed class PlayerController : MonoBehaviour
 
     private float playerRaycastMaxDistance = 0.7f;
     private bool moveLeft, moveRight, jump, playerDied = false;
+    private Vector3 spawnPosition = default;
 
     public uint score = default;
     public bool playerWon = default;
 
     private const float Y_LIMIT = -8.5f;
+
+    private void Start()
+    {
+        spawnPosition = playerTransform.GetComponentInParent<Transform>().position;
+    }
 
     private void FixedUpdate()
     {
@@ -106,7 +112,7 @@ internal sealed class PlayerController : MonoBehaviour
 
     private void KillPlayerInput() 
     { 
-        jump = false; 
+        jump = false;
     }
 
     private void Die() 
@@ -116,11 +122,24 @@ internal sealed class PlayerController : MonoBehaviour
         playerSprite.enabled = false;
         playerDied = true;
         playerDeathParticles.Play();
-        Invoke(nameof(Restart), 1f);
+        if (SceneManager.GetActiveScene().buildIndex == 0)
+            Invoke(nameof(Restart), 1f);
+        else 
+        { 
+            Destroy(Instantiate(playerDeathParticles, playerTransform.position, Quaternion.identity), 10f);
+            Invoke(nameof(RePositionPlayer), 0.8f);
+        }
     }
 
     private void Restart() 
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    private void RePositionPlayer() 
+    {
+        playerTransform.position = spawnPosition;
+        playerSprite.enabled = true;
+        playerDied = false;
     }
 }

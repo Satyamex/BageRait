@@ -9,6 +9,8 @@ internal sealed class GameManager : MonoBehaviour
     [SerializeField] private PlayerController player;
     [SerializeField] private Animator transitionAnimatior;
 
+    private float fps = default;
+
     private void Update()
     {
         playerScoreText.text = "score : " + player.score.ToString();
@@ -17,8 +19,15 @@ internal sealed class GameManager : MonoBehaviour
             Invoke(nameof(ChangeSceneToMain), 2f);
             transitionAnimatior.SetTrigger("Transition");
         }
-        if (Time.smoothDeltaTime == 0f) return;
-        gameFpsText.text = "fps : " + 1f / Mathf.RoundToInt(Time.smoothDeltaTime);
+        if (Random.Range(1, 60) <= 2)
+            LazyUpdate();
+    }
+
+    private void LazyUpdate() 
+    {
+        if (Time.smoothDeltaTime <= 0f) return;
+        fps = Mathf.RoundToInt(1f / Time.smoothDeltaTime);
+        gameFpsText.text = "fps : " + fps;
     }
 
     private void ChangeSceneToMain() 

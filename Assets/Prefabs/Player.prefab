@@ -4937,6 +4937,7 @@ GameObject:
   - component: {fileID: 3379965507191400638}
   - component: {fileID: 8627443645669393483}
   - component: {fileID: 8444256196342899397}
+  - component: {fileID: 7864055445800462800}
   m_Layer: 0
   m_Name: PlayerBase
   m_TagString: Untagged
@@ -5104,6 +5105,7 @@ MonoBehaviour:
   playerTransform: {fileID: 8663137090267959770}
   playerSprite: {fileID: 9066721411666475372}
   playerDeathParticles: {fileID: 7040517947189266199}
+  playerAnimator: {fileID: 7864055445800462800}
   playerSpeed: 50
   playerUpThrustForce: 20
   jumpBufferTime: 0.2
@@ -5111,6 +5113,29 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   score: 0
+  playerWon: 0
+--- !u!95 &7864055445800462800
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5548169514730531386}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e587ef8dcdce7684594c3030ff3028a2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &9133722254619807088
 GameObject:
   m_ObjectHideFlags: 0
@@ -5264,4 +5289,4 @@ MonoBehaviour:
   cameraTransform: {fileID: 740471524131081130}
   playerTransform: {fileID: 8663137090267959770}
   cameraInterpolationRateX: 6
-  cameraInterpolationRateY: 1
+  cameraInterpolationRateY: 2.5
