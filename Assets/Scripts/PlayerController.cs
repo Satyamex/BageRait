@@ -63,7 +63,7 @@ internal sealed class PlayerController : MonoBehaviour
             moveRight = true;
         if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
             moveLeft = true;
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.UpArrow))
         {
             jump = true;
             Invoke("KillPlayerInput", jumpBufferTime);
@@ -125,8 +125,8 @@ internal sealed class PlayerController : MonoBehaviour
         if (SceneManager.GetActiveScene().buildIndex == 0)
             Invoke(nameof(Restart), 1f);
         else 
-        { 
-            Destroy(Instantiate(playerDeathParticles, playerTransform.position, Quaternion.identity), 10f);
+        {
+            score = default;
             Invoke(nameof(RePositionPlayer), 0.8f);
         }
     }

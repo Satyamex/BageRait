@@ -1146,7 +1146,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "you can jump with \nz/space/up arrow key "
+  m_text: "you can jump with \nz or up arrow key "
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c8713705fbf2eae42a8f99eb4010ce8f, type: 2}
   m_sharedMaterial: {fileID: 8929623652251278128, guid: c8713705fbf2eae42a8f99eb4010ce8f, type: 2}
